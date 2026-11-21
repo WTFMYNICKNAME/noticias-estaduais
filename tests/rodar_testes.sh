@@ -62,6 +62,27 @@ checa "comando status executa" "'$RAIZ/sistema_unificado.sh' status >/dev/null 2
 SAIDA_LER="$("$RAIZ/sistema_unificado.sh" ler SP 2>&1)"
 checa "comando ler imprime .txt com âncora" "grep -q '^\[âncora\]' <<< \"\$SAIDA_LER\""
 
+
+# ---------------------------------------------------------------
+# wikipedia/missao_sem_fontes.sh — sorteio de artigos sem fontes
+# ---------------------------------------------------------------
+WIKI_FIXTURE="$RAIZ/tests/fixtures/wiki_api.json"
+SAIDA_W1="$(WIKI_TESTE_RESPOSTA="$WIKI_FIXTURE" NEWS_BASE_DIR="$NEWS_BASE_DIR" "$RAIZ/wikipedia/missao_sem_fontes.sh" 2 2>&1)"
+checa "wikipedia: missão impressa com link do artigo" "grep -q 'https://pt.wikipedia.org/wiki/' <<< \"$SAIDA_W1\""
+checa "wikipedia: sorteou exatamente 2" "[[ \$(grep -c 'MISSÃO SORTEADA' <<< \"$SAIDA_W1\") -eq 2 ]]"
+checa "wikipedia: âncoras registradas (2 linhas)" "[[ \$(wc -l < '$NEWS_BASE_DIR/wikipedia/visitados.tsv') -eq 2 ]]"
+checa "wikipedia: carta aponta a quest M-014" "grep -q 'M-014' <<< \"$SAIDA_W1\""
+
+SAIDA_W2="$(WIKI_TESTE_RESPOSTA="$WIKI_FIXTURE" NEWS_BASE_DIR="$NEWS_BASE_DIR" "$RAIZ/wikipedia/missao_sem_fontes.sh" 99 2>&1)"
+checa "wikipedia: dedupe — sorteia só as não visitadas (3)" "[[ \$(grep -c 'MISSÃO SORTEADA' <<< \"$SAIDA_W2\") -eq 3 ]]"
+checa "wikipedia: mostra total de âncoras (5)" "grep -q 'Âncoras registradas: 5' <<< \"$SAIDA_W2\""
+
+SAIDA_W3="$(WIKI_TESTE_RESPOSTA="$WIKI_FIXTURE" NEWS_BASE_DIR="$NEWS_BASE_DIR" "$RAIZ/wikipedia/missao_sem_fontes.sh" 2>&1; true)"
+checa "wikipedia: tudo visitado → orienta --navegar/--limpar" "grep -q '\--navegar' <<< \"$SAIDA_W3\""
+
+"$RAIZ/wikipedia/missao_sem_fontes.sh" --limpar >/dev/null 2>&1 || true
+
+
 echo
 echo "-----------------------------------------"
 echo "RESULTADO: $passou passou / $falhou falhou"

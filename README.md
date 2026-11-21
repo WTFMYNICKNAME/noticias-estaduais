@@ -147,6 +147,28 @@ O repositório também abriga o **tabuleiro de sessão** que acompanha o projeto
 
 > As imagens de fundo do tabuleiro (0000–9999.jpg) ficam no seu acervo local.
 
+## 📜 Wikipédia: resgatando artigos sem fontes
+
+A mesma filosofia de âncora/sem repetição do motor de notícias virou um
+sorteador de missões de **melhoria de verbetes**: a Wikipédia PT mantém uma
+[mobilização](https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:Projetos/Manuten%C3%A7%C3%A3o)
+para colocar referências nos artigos da categoria
+["!Artigos que carecem de fontes"](https://pt.wikipedia.org/wiki/Categoria:!Artigos_que_carecem_de_fontes)
+(tens de milhares de artigos esperando).
+
+```bash
+./wikipedia/missao_sem_fontes.sh          # sorteia 1 artigo sem fontes
+./wikipedia/missao_sem_fontes.sh 3        # sorteia 3 (nunca repete: âncora local)
+./wikipedia/missao_sem_fontes.sh --antigos # relicários: "Sem fontes há 10 anos"
+./wikipedia/missao_sem_fontes.sh --desde 2016
+./wikipedia/missao_sem_fontes.sh --abrir  # sorteia e já abre no navegador
+./wikipedia/missao_sem_fontes.sh --navegar # link de sorteio só-navegador (sem API)
+```
+
+Cada carta de missão traz link de leitura, link de edição e o
+guia oficial de notas de rodapé. Quem adicionar pelo menos uma referência
+confiável cumpre as quests **M-014**/**M-015** do Quadro de Missões.
+
 ## 🎲 Contribuir: Quadro de Missões
 
 Quer contribuir (ou usar) o projeto de dia ou de madrugada? Veja o

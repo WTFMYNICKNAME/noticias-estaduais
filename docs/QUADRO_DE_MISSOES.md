@@ -42,6 +42,7 @@ projeto inteiro — existe uma quest inicial feita para quem acabou de chegar.
 | **Domador de NPCs** | 🤖 | Engine de IA, personagens, cenários, narrador autônomo para partidas |
 | **Sentinela de Turno** | 🛡️ | Daemon/cron 24–7, logs, monitoramento da coleta noite/dia |
 | **Taróloga do Cartucho** | 🔮 | Elabora artes e leituras do baralho de tarô (`tabuleiro-ouija/cartas/`) |
+| **Patrulheira da Esplanada** | 📜 | Sorteia e resgata verbetes da categoria "artigos sem fontes" da Wikipédia (`wikipedia/missao_sem_fontes.sh`) |
 
 Você pode acumular classes — o engine não se importa. 😄
 
@@ -102,6 +103,14 @@ Você pode acumular classes — o engine não se importa. 😄
 - [ ] **M-013 · 💀 · 150 XP** — "O Tabuleiro Vive": downloader/parseamento do
   seu tabuleiro Ouija injetando as perguntas do público na coleta ("o que
   queremos saber sobre o estado hoje?").
+- [ ] **M-014 · 🟢 · 30 XP** — "Andarilha das Fontes" (inspirada na mobilização
+  da [Esplanada](https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:Projetos/Manuten%C3%A7%C3%A3o)):
+  rode `./wikipedia/missao_sem_fontes.sh`, escolha um artigo sorteado e adicione
+  ao menos **1 referência confiável** com nota de rodapé pelo guia de estilo.
+  O sorteio nunca repete artigo (âncora em `~/.news_npc_system/wikipedia/`).
+- [ ] **M-015 · 🟡 · 40 XP** — "Expedição aos Relicários": mesma técnica, mas
+  com `--antigos` ("Sem fontes há 10 anos") ou `--desde ANO` — resgate um
+  verbete abandonado há uma década. Vale XP extra pela escavação.
 
 ### 🤖 Arco III — *"Mestres Autônomos"* (engine de IA + partidas)
 
@@ -154,6 +163,7 @@ Você pode acumular classes — o engine não se importa. 😄
 - **Aprendiz de Feeds** — completou M-000. Badge: 🗞️
 - **Alquimista de Texto** — 3 quests do Arco I. Badge: 🧪
 - **Xamã do Ouija** — 2 quests do Arco II. Badge: 🕯️
+- **Enciclopedista das Sombras** — 1 verbete fonteado (M-014/M-015). Badge: 📜
 - **Mestre dos Mestres** — 2 quests do Arco III. Badge: 🤖
 - **Guardião do Daemon** — 10 turnos completados de Vigília. Badge: 🛡️
 
