@@ -83,6 +83,36 @@ checa "wikipedia: tudo visitado → orienta --navegar/--limpar" "grep -q '\--nav
 "$RAIZ/wikipedia/missao_sem_fontes.sh" --limpar >/dev/null 2>&1 || true
 
 
+# ---------------------------------------------------------------
+# ferramentas/detector_dupes.sh + ferramentas/ideias.sh
+# ---------------------------------------------------------------
+"$RAIZ/ferramentas/detector_dupes.sh" >/dev/null 2>&1
+checa "detector: repositório limpo de duplicatas exatas" "[[ $? -eq 0 ]]"
+
+PASTA_DUP="$(mktemp -d)"
+cat > "$PASTA_DUP/a.sh" <<'FIXA'
+coisa() {
+    echo "linha um aqui"
+    echo "linha dois aqui"
+    echo "linha tres aqui"
+}
+FIXA
+cp "$PASTA_DUP/a.sh" "$PASTA_DUP/b.sh"
+"$RAIZ/ferramentas/detector_dupes.sh" "$PASTA_DUP" >/dev/null 2>&1
+checa "detector: flag duplicata exata em fixture" "[[ $? -eq 1 ]]"
+rm -rf "$PASTA_DUP"
+
+REGISTRO_TESTE="$(mktemp)"
+IDEIAS_ARQUIVO="$REGISTRO_TESTE" "$RAIZ/ferramentas/ideias.sh" registrar "Ideia de Teste" "uma descrição qualquer" >/dev/null
+checa "ideias: ideia registrada com ID" "grep -q 'IDEIA-[0-9a-f]\{8\}' '$REGISTRO_TESTE'"
+IDEIAS_ARQUIVO="$REGISTRO_TESTE" "$RAIZ/ferramentas/ideias.sh" registrar "Ideia de Teste" "uma descrição qualquer" >/dev/null 2>&1
+checa "ideias: duplicata recusada (1 registro só)" "[[ \$(grep -c 'IDEIA-' '$REGISTRO_TESTE') -eq 1 ]]"
+IDEIAS_ARQUIVO="$REGISTRO_TESTE" "$RAIZ/ferramentas/ideias.sh" registrar "Outra Ideia" "descrição diferente" >/dev/null
+checa "ideias: segunda ideia registrada" "[[ \$(grep -c 'IDEIA-' '$REGISTRO_TESTE') -eq 2 ]]"
+rm -f "$REGISTRO_TESTE"
+
+
+
 echo
 echo "-----------------------------------------"
 echo "RESULTADO: $passou passou / $falhou falhou"

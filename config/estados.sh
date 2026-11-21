@@ -74,8 +74,7 @@ TABELA_UFS
 
 # Converte "BUSCA::termo" na URL do feed de busca do Google News (janela de 7 dias).
 news_url_busca_google() {
-    local enc bytes
-    bytes="$(printf '%s' "${1} when:7d" | od -An -tx1 | tr -s ' \n' ' ')"
-    for b in ${bytes}; do enc+="%${b^^}"; done
+    local enc
+    enc="$(url_encode "${1} when:7d")"
     printf 'https://news.google.com/rss/search?q=%s&hl=pt-BR&gl=BR&ceid=BR%%3Apt-419\n' "${enc}"
 }

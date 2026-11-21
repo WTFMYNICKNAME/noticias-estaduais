@@ -44,6 +44,7 @@ verificar_dependencias() {
 
 carregar_modulos() {
     source "$SCRIPT_DIR/lib/xml.sh"
+    source "$SCRIPT_DIR/lib/url.sh"
     source "$SCRIPT_DIR/config/estados.sh"
     source "$SCRIPT_DIR/modulos/modulo_pastas.sh"
     source "$SCRIPT_DIR/modulos/modulo_estados.sh"

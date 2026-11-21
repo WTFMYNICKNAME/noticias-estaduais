@@ -169,6 +169,33 @@ Cada carta de missão traz link de leitura, link de edição e o
 guia oficial de notas de rodapé. Quem adicionar pelo menos uma referência
 confiável cumpre as quests **M-014**/**M-015** do Quadro de Missões.
 
+## 🪪 Anti-duplicata: selo de ideias + detector de redundância
+
+Duas ferramentas para o problema de "descobrir tarde demais que alguém já
+tinha tido a mesma ideia":
+
+- **`ferramentas/ideias.sh`** — registro de ideias com **ID assinado por hash +
+  data** (`docs/REGISTRO_IDEIAS.md`) e busca de *prior art* no GitHub
+  (`gh search repos`) antes de construir: se já existe projeto parecido, o
+  ideal é forkar/colaborar em vez de redobrar o trabalho.
+
+  ```bash
+  ./ferramentas/ideias.sh registrar "Módulo de fotos" "descrição do que pretende construir"
+  ./ferramentas/ideias.sh buscar "state news aggregator rss brazil"
+  ```
+
+- **`ferramentas/detector_dupes.sh`** — detector de redundância interna,
+  estilo detector de plágio: funções com corpo idêntico, funções "quase
+  gêmeas" (similaridade por tokens) e blocos de 6+ linhas repetidos. Código
+  1 = duplicata exata (serve de portão para CI/ritual).
+
+  ```bash
+  ./ferramentas/detector_dupes.sh            # varre o repo (menos tests/)
+  ./ferramentas/detector_dupes.sh --tudo     # inclui tests/fixtures
+  ```
+
+Foi ele que consolidou o codificador de URL duplicado em `lib/url.sh`.
+
 ## 🎲 Contribuir: Quadro de Missões
 
 Quer contribuir (ou usar) o projeto de dia ou de madrugada? Veja o
@@ -188,7 +215,10 @@ Registro das adaptações e correções aplicadas em relação ao documento de r
 - **Fontes por estado** — feed g1 (`https://g1.globo.com/rss/g1/<uf>/`) validado por nº de itens + buscas Google News com janela `when:7d` codificadas em bash puro (sem requisições extras); fontes que falham são ignoradas sem abortar a coleta.
 - **Retenção de 7 dias** — poda por data do nome do arquivo (AAAA-MM-DD) e limpeza do registro de hashes.
 - **Daemon opcional** — coleta contínua em segundo plano com PID file, `disown` e *graceful shutdown* via `trap` SIGINT/SIGTERM.
-- **Testes de integração** — suíte local com fixtures RSS reais do g1 (sem rede): 14 verificações (arquivo do dia, dedupe, âncora, janela, retenção, podcast, status, `ler`).
+- **Testes de integração** — suíte local com fixtures RSS reais do g1 (sem rede): 26 verificações (arquivo do dia, dedupe, âncora, janela, retenção, podcast, status, `ler`, sorteio Wikipédia, detector de duplicatas, registro de ideias).
+- **Codificador de URL único (`lib/url.sh`)** — consolidado pelo próprio detector de duplicatas; usado pelo motor de notícias e pelo módulo da Wikipédia.
+- **Ferramentas anti-redundância** — `ferramentas/detector_dupes.sh` (plágio interno) e `ferramentas/ideias.sh` (ID de ideias + prior art no GitHub; registro em `docs/REGISTRO_IDEIAS.md`).
+- **Módulo Wikipédia (`wikipedia/missao_sem_fontes.sh`)** — sorteia verbetes sem fontes da Esplanada com âncora anti-repetição.
 - **Correções de engenharia Bash** — `declare -gA` para tabelas globais (variáveis deixavam de existir fora da função de carga), `IFS` restaurado após loops de fontes, leitura com `IFS='\t'` (títulos com espaços) e guardas para UFs inéditas.
 
 ## 📦 Requisitos

@@ -35,7 +35,8 @@ projeto inteiro — existe uma quest inicial feita para quem acabou de chegar.
 | Classe | Símbolo | Função |
 |---|---|---|
 | **Batedor de Fontes** | 🗞️ | Mapeia, testa e cadastra feeds RSS por UF; resgata fontes caídas |
-| **Caçador de Duplicatas** | 🧟 | Melhora o dedupe (hash de título/link), audita o registro de âncoras |
+| **Caçador de Duplicatas** | 🧟 | Melhora o dedupe (hash de título/link), audita âncoras e roda o detector de redundância (`ferramentas/detector_dupes.sh`) |
+| **Arquivista de Ideias** | 🪪 | Mantém o `docs/REGISTRO_IDEIAS.md` e checa prior art no GitHub antes de módulos grandes (`ferramentas/ideias.sh`) |
 | **Mestre de Podcast** | 🎙️ | Cuida do roteiro "Conte as últimas novidades", formatação e voz/TTS |
 | **Escriba das Cidades** | 📜 | Documentação, guias para leigos, tradução, exemplos de uso |
 | **Cartógrafo do Ouija** | 🕯️ | Expansion pack: extrator Wikipedia + integração com o tabuleiro Ouija |
@@ -55,7 +56,7 @@ Você pode acumular classes — o engine não se importa. 😄
 | Dia | Ritual | Classe responsável | XP |
 |---|---|---|---|
 | Todo dia (turno noite) | "A Vigília do Daemon": conferir `status`, rodar `limpar`, relatar fontes caídas em issue | 🛡️ Sentinela | 10 XP |
-| Segunda | "Ponteiro das Âncoras": rodar suíte `tests/rodar_testes.sh` depois de qualquer merge | 🧟 Caçador | 20 XP |
+| Segunda | "Ponteiro das Âncoras": rodar suíte `tests/rodar_testes.sh` depois de qualquer merge (+ rodar `ferramentas/detector_dupes.sh`) | 🧟 Caçador | 20 XP |
 | Quarta | "Varredura das 27": testar ao menos 3 feeds por UF nova com o g1/Google News | 🗞️ Batedor | 30 XP |
 | Sexta (noite) | "Fogueira do Podcast": gerar roteiro (`podcast todos`), revisar 1 edição e abrir proposta de melhoria | 🎙️ Mestre | 25 XP |
 | Domingo | "Crônica da Semana": atualizar CHANGELOG/README com o que mudou | 📜 Escriba | 20 XP |
@@ -111,6 +112,9 @@ Você pode acumular classes — o engine não se importa. 😄
 - [ ] **M-015 · 🟡 · 40 XP** — "Expedição aos Relicários": mesma técnica, mas
   com `--antigos` ("Sem fontes há 10 anos") ou `--desde ANO` — resgate um
   verbete abandonado há uma década. Vale XP extra pela escavação.
+- [ ] **M-016 · 🟢 · 30 XP** — "Certidão de Ideia": ritual de ouro antes de
+  construir módulo grande — registro no `docs/REGISTRO_IDEIAS.md` junto com
+  a busca de prior art no GitHub (evidências anexadas ao PR).
 
 ### 🤖 Arco III — *"Mestres Autônomos"* (engine de IA + partidas)
 
@@ -155,6 +159,20 @@ Você pode acumular classes — o engine não se importa. 😄
 - [ ] **M-035 · 💀 · 150 XP** — "O Tabuleiro Sonha": mescla total — perguntas
   do público no Ouija, respostas soletradas, carta do tarô condicionada à
   notícia do dia e narração NPC em voz (Arco II + III + IV integram).
+
+### 🪪 Arco V — "A Forja dos Instrumentos" (anti-duplicata e prior art)
+
+- [x] **M-040 · 🟢 · 30 XP** — ✅ *Concluída*: `ferramentas/detector_dupes.sh`
+  (funções de corpo idêntico, quase-gêmeas por tokens, blocos de linhas
+  repetidos) e `ferramentas/ideias.sh` (ID-assinatura + prior art no GitHub);
+  codificador de URL consolidado em `lib/url.sh` pelo próprio detector;
+  suíte em 26 verificações.
+- [ ] **M-041 · 🔴 · 80 XP** — "Olho de Cyclops": plugar
+  `ferramentas/detector_dupes.sh` no CI (GitHub Actions) junto com os tests
+  (M-003) — PR que introduz duplicata fica com o portão vermelho.
+- [ ] **M-042 · 🟡 · 50 XP** — "Espelho de Similaridade": aprimorar o detector
+  com similaridade de sequência (shingles grandes/Levenshtein) para pegar
+  cópias reformuladas além do corte de 75% por tokens.
 
 ---
 

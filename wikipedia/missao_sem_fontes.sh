@@ -21,6 +21,9 @@
 # ---------------------------------------------------------------------------
 set -u
 
+RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+[[ -f "$RAIZ/lib/url.sh" ]] && source "$RAIZ/lib/url.sh"
+
 API="${WIKI_API:-https://pt.wikipedia.org/w/api.php}"
 WIKI_BASE="${WIKI_WIKI_BASE:-https://pt.wikipedia.org/wiki/}"
 BASE_DADOS="${NEWS_BASE_DIR:-$HOME/.news_npc_system}"
@@ -59,18 +62,10 @@ Referência válida vale a quest M-014 do docs/QUADRO_DE_MISSOES.md.
 AJUDA
 }
 
+# Codificador de URL compartilhado (lib/url.sh); aqui só adapta o espaço
+# para a convenção de caminho de artigo da Wikipédia.
 wiki_url_encode() {
-    local enc="" bytes b ch
-    bytes="$(printf '%s' "$1" | od -An -tx1 | tr -s ' \n' ' ')"
-    for b in ${bytes}; do
-        ch="$(printf "\\x$b")"
-        case "$ch" in
-            [a-zA-Z0-9_.~,-]) enc+="$ch" ;;
-            ' ') enc+="_" ;;
-            *) enc+="%${b^^}" ;;
-        esac
-    done
-    printf '%s' "${enc}"
+    url_encode_caminho "$1"
 }
 
 wiki_url_artigo() {
