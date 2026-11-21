@@ -1,0 +1,2 @@
+SP|G1 São Paulo|file:///workspace/noticias-estaduais/tests/fixtures/g1_sp.xml
+SP|Jornal Agregador SP|file:///workspace/noticias-estaduais/tests/fixtures/google_news_sp.xml
