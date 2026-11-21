@@ -41,6 +41,7 @@ projeto inteiro — existe uma quest inicial feita para quem acabou de chegar.
 | **Cartógrafo do Ouija** | 🕯️ | Expansion pack: extrator Wikipedia + integração com o tabuleiro Ouija |
 | **Domador de NPCs** | 🤖 | Engine de IA, personagens, cenários, narrador autônomo para partidas |
 | **Sentinela de Turno** | 🛡️ | Daemon/cron 24–7, logs, monitoramento da coleta noite/dia |
+| **Taróloga do Cartucho** | 🔮 | Elabora artes e leituras do baralho de tarô (`tabuleiro-ouija/cartas/`) |
 
 Você pode acumular classes — o engine não se importa. 😄
 
@@ -118,6 +119,33 @@ Você pode acumular classes — o engine não se importa. 😄
 - [ ] **M-024 · 🔴 · 80 XP** — "Auditoria das Sombras": reviver o legado do
   documento de referência — `modulo_revisao.sh` fazendo auto-auditoria do
   ambiente GNU/Linux (patches, dependências) e do próprio acervo de .txt.
+
+### 🔮 Arco IV — "O Despertar do Baralho" (tabuleiro Ouija + tarô)
+
+> O Expansion Pack da vida real: o tabuleiro Ouija do Cartucho agora vive
+> no repositório (`tabuleiro-ouija/`) com cartucho assinado (história dos
+> Guardiões sobre o talking board), oráculo de 78 cartas e o botão de
+> cenário corrigido.
+
+- [x] **M-030 · 🟡 · 40 XP** — ✅ *Concluída*: baralho de tarô completo em
+  dados — 22 Arcanos Maiores (ordem Marselha) + 56 Menores (Paus, Copas,
+  Espadas, Ouros), cada carta com leitura erguida e invertida (`oraculo.js`).
+- [x] **M-031 · 🟢 · 30 XP** — ✅ *Concluída*: botão "🖼️ Trocar cenário"
+  corrigido — tenta 1 imagem do acervo (0000–9999.jpg) e, sem arte local,
+  alterna 8 cenários garantidos por CSS com aviso do nome no rodapé (não
+  está mais preso a 9 tentativas falhando em silêncio).
+- [ ] **M-032 · 🔴 · 90 XP** — "As 75 Cartas Restantes": pintar as artes
+  faltantes do acervo e salvá-las como `cartas/NNNN.jpg` (o contador do
+  oráculo mostra o progresso; exceções já mapeadas em `ARTES_EXTRAS`).
+- [ ] **M-033 · 🟡 · 50 XP** — "Oracular do Dia": usar a capa 0008.jpg como
+  moldura do relatório diário (carta do dia + previsão + resumo das notícias
+  do estado) — a ponte entre o oráculo e o News NPC Engine.
+- [ ] **M-034 · 🟡 · 50 XP** — "Acervo de Cartuchos": novas sessões com IA
+  privada (Lumo/Proton) virando `cartucho_*.txt` para os Guardiões lerem —
+  mais memória para o tabuleiro soletrar.
+- [ ] **M-035 · 💀 · 150 XP** — "O Tabuleiro Sonha": mescla total — perguntas
+  do público no Ouija, respostas soletradas, carta do tarô condicionada à
+  notícia do dia e narração NPC em voz (Arco II + III + IV integram).
 
 ---
 

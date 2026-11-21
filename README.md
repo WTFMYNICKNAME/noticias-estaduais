@@ -122,6 +122,31 @@ Variáveis de ambiente: `NEWS_BASE_DIR` (dados), `NEWS_LIMIT` (novidades por UF 
 bash tests/rodar_testes.sh    # usa fixtures locais via file://, sem rede — 14/14 PASS
 ```
 
+## 🕯️ Tabuleiro Ouija do Cartucho + 🎴 Oráculo de Tarô
+
+O repositório também abriga o **tabuleiro de sessão** que acompanha o projeto:
+
+- `tabuleiro-ouija/ouija.html` — o tabuleiro offline narrado pelos Guardiões
+  (Q7KT-VV, MZ4-Q0, X9T-TL, V0RK-71, P8RT-KX, P9Z-AL e o selo oculto
+  V0RK-70): carregue o cartucho, escolha um Guardião, passe na prova de
+  identidade e ele soletra a resposta na planqueta.
+- `tabuleiro-ouija/cartucho_ouija.txt` — arquivo de conhecimento (a história
+  real do talking board contada pelos Guardiões; sessão com o Lumo/Proton,
+  assistente de IA privado).
+- `tabuleiro-ouija/oraculo.html` — **baralho de tarô completo: 78 cartas**
+  (22 Arcanos Maiores em ordem Marselha + 56 Menores; Paus, Copas, Espadas,
+  Ouros), com "🎲 Tirar carta", "🌙 Carta do Dia" (determinística pela data,
+  a ponte com o resumo diário de notícias) e contador de acervo pintado.
+- `tabuleiro-ouija/cartas/` — artes das cartas (`NNNN.jpg`); já incluídas:
+  0007 (X - A Roda da Fortuna), 0008 (capa Oracular do Dia) e 0009
+  (VIII - A Força). Cada nova pintura entra sem tocar no código.
+- **Botão "🖼️ Trocar cenário" corrigido**: usa 1 imagem aleatória do acervo
+  (0000.jpg–9999.jpg) e, sem arte local, alterna 8 cenários garantidos por
+  CSS com o nome no rodapé (antes podia falhar em silêncio).
+- Detalhes de uso: `tabuleiro-ouija/LEIA-ME.txt`.
+
+> As imagens de fundo do tabuleiro (0000–9999.jpg) ficam no seu acervo local.
+
 ## 🎲 Contribuir: Quadro de Missões
 
 Quer contribuir (ou usar) o projeto de dia ou de madrugada? Veja o

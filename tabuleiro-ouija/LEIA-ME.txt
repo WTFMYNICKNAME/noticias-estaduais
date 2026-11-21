@@ -1,0 +1,84 @@
+============================================================================
+TABULEIRO OUIJA DO CARTUCHO — guia rápido para pessoas leigas
+============================================================================
+
+O QUE É
+-------
+
+"Ouija do Cartucho" é um tabuleiro de sessão (talking board) offline que
+funciona no navegador (Firefox/Linux GNU recomendado), narrado pelos
+Guardiões: Q7KT-VV, MZ4-Q0, X9T-TL, V0RK-71, P8RT-KX, P9Z-AL e o selo
+oculto V0RK-70.
+
+Arquivos desta pasta:
+  ouija.html          — o tabuleiro (abra este arquivo no navegador)
+  cartucho_ouija.txt  — arquivo de conhecimento lido pelos Guardiões
+                        (história real do talking board, com referências)
+  oraculo.html        — baralho de tarô completo: 78 cartas
+  oraculo.js          — os dados do baralho (nomes e significados)
+  oraculo_app.js      — a lógica do oráculo (tirar carta, carta do dia)
+  cartas/             — acervo de artes das cartas (NNNN.jpg), 0001–0078
+        já pintadas: 0007 (X - A Roda da Fortuna),
+                     0008 (capa "Oracular do Dia") e
+                     0009 (VIII - A Força)
+
+COMO USAR (PASSO A PASSO)
+-------------------------
+
+1. Coloque nesta pasta as imagens de fundo do tabuleiro (0000.jpg a 9999.jpg),
+   se você as tiver. Sem elas o tabuleiro funciona igual: o botão
+   "🖼️ Trocar cenário" alterna 8 cenários garantidos (Cripta do Cartucho,
+   Fogueira dos Guardiões, Lago Negro...) e o nome do cenário aparece no
+   rodapé da tela.
+2. Abra ouija.html (duplo clique). O tabuleiro lê o cartucho automaticamente;
+   se o navegador bloquear a leitura local, use o botão "📚 Carregar cartucho"
+   e selecione cartucho_ouija.txt.
+3. Escolha um Guardião (ou "🎲 Sortear"). Gire a "🎯 Roleta de perguntas",
+   responda no inbox e envie. Acertou a prova → o Guardião assume a planqueta
+   e soletra o trecho do cartucho. Pergunta livre também funciona: ele busca
+   no cartucho o trecho mais próximo e soletra.
+4. Segredos: soletrar V0RK70 no inbox abre o selo oculto (a história do
+   Gêmeo Apagado). Três cliques em SIM também abrem o vão.
+5. "🎴 Oráculo" abre o baralho de tarô: "🎲 Tirar carta ao acaso",
+   "🌙 Carta do Dia" (a mesma carta para a mesma data) e o estado do acervo
+   (quantas cartas já têm arte pintada).
+
+ELABORANDO O BARALHO (como contribuir)
+--------------------------------------
+
+O baralho de tarô está COMPLETO em dados (78 cartas com significado erguido e
+invertido). O que falta é a ARTE:
+
+  * Número da carta      = ordem no baralho, conforme oraculo.js:
+                           maiores 0001–0022 em ordem Marselha (0001 = O
+                           Louco ... 0022 = O Mundo); menores 0023–0078
+                           (Paus, Copas, Espadas, Ouros; Ás→10, Valete,
+                           Cavaleiro, Rainha, Rei).
+  * Arquivo da pintura   = cartas/NNNN.jpg (NNNN = número da carta).
+  * Excecões já mapeadas = 0011 usa 0007.jpg (X - A Roda da Fortuna) e
+                           0009 usa 0009.jpg (VIII - A Força), conforme o
+                           ARTES_EXTRAS em oraculo.js.
+  * 0008.jpg (capa "Oracular do Dia") pode ser usada como moldura do
+    relatório diário em futuras versões (ver Quadro de Missões, M-032).
+
+Cada nova pintura entra no acervo sem mexer em código: basta salvar
+cartas/NNNN.jpg. O contador "🎨 Acervo pintado" do oráculo mostra o progresso.
+
+CENÁRIOS DO TABULEIRO (botão corrigido)
+---------------------------------------
+
+Antes o botão tentava nove imagens seguidas (0000–9999.jpg) e podia parecer
+quebrado quando o acervo estava vazio. Agora ele tenta UMA imagem e, se não
+achar, alterna imediatamente os cenários garantidos por CSS, exibindo o nome:
+  Cripta do Cartucho • Fogueira dos Guardiões • Pergaminho em Chamas •
+  Lago Negro • Prateleiras Infinitas • Neblina da Meia-Noite •
+  Vitral Violeta • Poeira do Eremita
+
+LICENÇA E AVISOS
+----------------
+
+Narrativa e personagens são criação original para uso pessoal e offline.
+Referências a obras de terceiros são citadas como referência cultural/edu-
+cacional, sem fins comerciais. Nenhum espírito foi prejudicado na fabri-
+cação deste tabuleiro. Sessões com assistência do Lumo (Proton),
+assistente de IA privado: https://lumo.proton.me
