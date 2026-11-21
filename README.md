@@ -122,6 +122,15 @@ Variáveis de ambiente: `NEWS_BASE_DIR` (dados), `NEWS_LIMIT` (novidades por UF 
 bash tests/rodar_testes.sh    # usa fixtures locais via file://, sem rede — 14/14 PASS
 ```
 
+## 🎲 Contribuir: Quadro de Missões
+
+Quer contribuir (ou usar) o projeto de dia ou de madrugada? Veja o
+**[docs/QUADRO_DE_MISSOES.md](docs/QUADRO_DE_MISSOES.md)** — um cronograma com
+calendário de rituais semanais/mensais, classes (Batedor de Fontes, Cartógrafo
+do Ouija, Domador de NPCs…) e quests estilo RPG com XP, incluindo os
+**Expansion Packs**: tabuleiro Ouija + Wikipedia e o motor de narradores IA
+para partidas single solo player/online.
+
 ## 📝 Edições implementadas nesta versão (v1.0.0)
 
 Registro das adaptações e correções aplicadas em relação ao documento de referência:
