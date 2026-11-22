@@ -196,6 +196,22 @@ tinha tido a mesma ideia":
 
 Foi ele que consolidou o codificador de URL duplicado em `lib/url.sh`.
 
+- **`ferramentas/portao_pre_voo.sh`** — pré-voo de testes com hash de agenda
+  (concepção da segunda opinião da sessão Lumo, NPCs Z4P9T2/D8K5X3): o hash
+  de `janela|lista-de-scripts` viaja nos headers `X-Test-Run`/`X-Test-Window`
+  em toda validação em rajada, e o portão local **recusa disparar qualquer
+  request fora da janela assinada** — quem lê o access log do servidor vê
+  "teste agendado da semana", não tentativa de intrusão. Cortesia e
+  rastreabilidade, não segurança (o próprio PDF da opinião aponta: headers
+  são fáceis de falsificar; HMAC com chave do admin seria outra quest).
+
+  ```bash
+  ./ferramentas/portao_pre_voo.sh pre_voo \
+      "2026-11-22T09:00/2026-11-28T16:00" \
+      "sistema_unificado.sh,lib/url.sh" \
+      "https://g1.globo.com/rss/g1/sp/"
+  ```
+
 ## 🎲 Contribuir: Quadro de Missões
 
 Quer contribuir (ou usar) o projeto de dia ou de madrugada? Veja o
@@ -215,9 +231,10 @@ Registro das adaptações e correções aplicadas em relação ao documento de r
 - **Fontes por estado** — feed g1 (`https://g1.globo.com/rss/g1/<uf>/`) validado por nº de itens + buscas Google News com janela `when:7d` codificadas em bash puro (sem requisições extras); fontes que falham são ignoradas sem abortar a coleta.
 - **Retenção de 7 dias** — poda por data do nome do arquivo (AAAA-MM-DD) e limpeza do registro de hashes.
 - **Daemon opcional** — coleta contínua em segundo plano com PID file, `disown` e *graceful shutdown* via `trap` SIGINT/SIGTERM.
-- **Testes de integração** — suíte local com fixtures RSS reais do g1 (sem rede): 26 verificações (arquivo do dia, dedupe, âncora, janela, retenção, podcast, status, `ler`, sorteio Wikipédia, detector de duplicatas, registro de ideias).
+- **Testes de integração** — suíte local com fixtures RSS reais do g1 (sem rede): 32 verificações (arquivo do dia, dedupe, âncora, janela, retenção, podcast, status, `ler`, sorteio Wikipédia, detector de duplicatas, registro de ideias, portão pré-voo).
 - **Codificador de URL único (`lib/url.sh`)** — consolidado pelo próprio detector de duplicatas; usado pelo motor de notícias e pelo módulo da Wikipédia.
 - **Ferramentas anti-redundância** — `ferramentas/detector_dupes.sh` (plágio interno) e `ferramentas/ideias.sh` (ID de ideias + prior art no GitHub; registro em `docs/REGISTRO_IDEIAS.md`).
+- **Portão pré-voo (`ferramentas/portao_pre_voo.sh`)** — hash de agenda nos headers de teste em rajada + gate local que aborta fora da janela autorizada (concepção: segunda opinião Lumo; crédito no registro de ideias).
 - **Módulo Wikipédia (`wikipedia/missao_sem_fontes.sh`)** — sorteia verbetes sem fontes da Esplanada com âncora anti-repetição.
 - **Correções de engenharia Bash** — `declare -gA` para tabelas globais (variáveis deixavam de existir fora da função de carga), `IFS` restaurado após loops de fontes, leitura com `IFS='\t'` (títulos com espaços) e guardas para UFs inéditas.
 

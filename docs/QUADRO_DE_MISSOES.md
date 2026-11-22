@@ -173,6 +173,13 @@ Você pode acumular classes — o engine não se importa. 😄
 - [ ] **M-042 · 🟡 · 50 XP** — "Espelho de Similaridade": aprimorar o detector
   com similaridade de sequência (shingles grandes/Levenshtein) para pegar
   cópias reformuladas além do corte de 75% por tokens.
+- [x] **M-043 · 🟢 · 30 XP** — ✅ *Concluída* (concepção: segunda opinião da
+  sessão Lumo, NPCs Z4P9T2/D8K5X3): `ferramentas/portao_pre_voo.sh` —
+  pré-voo de testes com hash de agenda (`carimbo` determinístico de
+  janela|scripts, `conferir`, `pre_voo URL...`): fora da janela assinada
+  nada toca na rede; dentro dela, os requests levam `X-Test-Run`/
+  `X-Test-Window` para o admin(a) do servidor distinguir rajada de teste
+  agendada de barulho anônimo. Cortesia, não segurança (HMAC é outra quest).
 
 ---
 

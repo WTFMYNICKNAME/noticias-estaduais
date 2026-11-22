@@ -112,6 +112,27 @@ checa "ideias: segunda ideia registrada" "[[ \$(grep -c 'IDEIA-' '$REGISTRO_TEST
 rm -f "$REGISTRO_TESTE"
 
 
+# ---------------------------------------------------------------
+# ferramentas/portao_pre_voo.sh — gate de testes com hash de agenda
+# ---------------------------------------------------------------
+PORTAO="$RAIZ/ferramentas/portao_pre_voo.sh"
+JANELA="2026-11-22T09:00/2026-11-28T16:00"
+CARIMBO1="$("$PORTAO" carimbo "$JANELA" "sistema_unificado.sh,lib/url.sh")"
+CARIMBO2="$("$PORTAO" carimbo "$JANELA" "sistema_unificado.sh,lib/url.sh")"
+checa "portao: carimbo determinístico (16 hex)" "[[ '$CARIMBO1' == '$CARIMBO2' && \${#CARIMBO1} -eq 16 ]]"
+checa "portao: dentro da janela com agora congelado: 2026-11-25T10:00" "PORTAO_TESTE_NOW='2026-11-25T10:00' '$PORTAO' conferir '$JANELA' >/dev/null 2>&1"
+checa "portao: fora da janela recusa (exit 1)" "! PORTAO_TESTE_NOW='2026-12-01T23:59' '$PORTAO' conferir '$JANELA' >/dev/null 2>&1"
+checa "portao: janela estragada recusa (exit 2)" "! PORTAO_TESTE_NOW='2026-11-25T10:00' '$PORTAO' conferir 'janela-offline' >/dev/null 2>&1"
+STUB_CURL="$(mktemp)"
+printf '#!/usr/bin/env bash\necho "STUB args: $*"\n' > "$STUB_CURL"; chmod +x "$STUB_CURL"
+SAIDA_PV="$(PORTAO_TESTE_NOW='2026-11-25T10:00' PORTAO_TESTE_CURL="$STUB_CURL" "$PORTAO" pre_voo "$JANELA" "lista" 'https://exemplo.teste/feed.xml' 2>&1)"
+checa "portao: pre_voo in-window dispara com carimbo" "grep -q 'X-Test-Run:' <<< \"$SAIDA_PV\""
+SAIDA_PV_FORA="$(PORTAO_TESTE_NOW='2026-12-01T23:59' PORTAO_TESTE_CURL="$STUB_CURL" "$PORTAO" pre_voo "$JANELA" "lista" 'https://exemplo.teste/feed.xml' 2>&1; true)"
+checa "portao: pre_voo fora da janela aborta sem rede" "grep -q 'nada disparado' <<< \"$SAIDA_PV_FORA\""
+rm -f "$STUB_CURL"
+
+
+
 
 echo
 echo "-----------------------------------------"
