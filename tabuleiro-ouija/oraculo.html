@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Oráculo do Cartucho — Baralho de Tarô (78 cartas)</title>
+<!-- ============================================================
+  ORÁCULO DO CARTUCHO — companheiro do Ouija do Cartucho
+  © 2026 Sessão dos Guardiões — uso pessoal e offline.
+  Artes: cartas/0001.jpg a 0078.jpg (quando pintadas); as três
+  artes do acervo já incluídas são 0007 (A Roda da Fortuna),
+  0008 (capa do Oracular do Dia) e 0009 (A Força).
+  ============================================================ -->
+<style>
+:root{
+  --pergaminho:#caa96b; --tinta:#241605; --madeira:#3a2712;
+  --ouro:#c9973f; --brasa:#ffb347; --violeta:#6d4aff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Georgia,'Times New Roman',serif;color:#e8d9b0;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 25%, #2a1c4a 0%, #120b1c 70%, #0b0712 100%);
+  display:flex;flex-direction:column;align-items:center;padding:16px;
+}
+h1{font-size:min(4.2vw,28px);letter-spacing:2px;color:var(--ouro);
+  text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,.8);text-align:center}
+.sub{font-size:min(2.6vw,14px);opacity:.75;margin-top:4px;text-align:center}
+.barra{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+button{
+  font-family:Georgia,serif;font-size:min(3vw,15px);
+  background:linear-gradient(#3a2450,#1d1026);color:var(--brasa);
+  border:2px solid var(--ouro);border-radius:8px;padding:9px 16px;
+  cursor:pointer;letter-spacing:1px;}
+button:hover{background:linear-gradient(#4a2f63,#291633)}
+.palco{display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap}
+#carta{
+  width:min(58vw,300px);aspect-ratio:2/3.35;border-radius:12px;
+  border:3px double var(--ouro);position:relative;overflow:hidden;
+  background:radial-gradient(circle at 50% 35%, #3d2467 0%, #1b0f33 70%, #120a20 100%);
+  box-shadow:0 10px 30px rgba(0,0,0,.75), inset 0 0 30px rgba(0,0,0,.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  transition:transform .5s;}
+#carta.img{background-size:cover;background-position:center}
+#carta.invertida{transform:rotate(180deg)}
+#carta .arte{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.92}
+#carta .faixa{position:relative;z-index:2;width:100%;padding:8px 6px;text-align:center;
+  background:linear-gradient(rgba(18,10,32,.92), rgba(18,10,32,.75));
+  border-top:1px solid var(--ouro);border-bottom:1px solid var(--ouro)}
+#carta .faixa:first-child{border-top:none}
+#carta .faixa:last-child{border-bottom:none}
+#carta .num{font-family:'Courier New',monospace;color:var(--ouro);font-size:14px;letter-spacing:3px}
+#carta .nome{color:#fff;font-size:min(4vw,19px);letter-spacing:1px;margin-top:2px}
+#carta .rodape{margin-top:auto}
+#painelLeitura{width:min(92vw,520px);background:#1a1005;border:3px double var(--violeta);
+  border-radius:12px;padding:18px;font-size:15px;line-height:1.7;color:#d7c9f5}
+#painelLeitura h3{color:var(--ouro);letter-spacing:2px;margin-bottom:8px;font-size:17px}
+#painelLeitura .inv{color:#a58fe0}
+#painelLeitura .naipe{font-size:12px;color:#8f7fd0;font-family:'Courier New',monospace;margin-top:10px}
+#selo{font-size:12px;opacity:.6;text-align:center;margin-top:14px}
+#acervo{font-size:12px;opacity:.75;margin-top:8px;text-align:center}
+a{color:var(--brasa)}
+</style>
+</head>
+<body>
+<h1>🎴 Oráculo do Cartucho</h1>
+<p class="sub">Baralho completo — 22 Arcanos Maiores + 56 Menores. A mesma data, a mesma carta.</p>
+
+<div class="barra">
+  <button id="btnTirar">🎲 Tirar carta ao acaso</button>
+  <button id="btnDia">🌙 Carta do Dia</button>
+  <button id="btnInverter">🔁 Erguer / Inverter</button>
+  <button onclick="window.location.href='ouija.html'">⬅ Tabuleiro</button>
+</div>
+
+<div class="palco">
+  <div id="carta">
+    <div class="faixa"><div class="num" id="numTop">—</div><div class="nome" id="nomeTop">A MESA ESTÁ EMBRUXADA</div></div>
+    <div class="faixa rodape"><div class="num" id="numRod">aguardando invocação</div></div>
+  </div>
+  <div id="painelLeitura">
+    <h3 id="ttl">Clique em "Tirar carta" para começar</h3>
+    <p id="txt">O oráculo responde com a carta erguida ou invertida — como as vozes do tabuleiro: sempre o texto inteiro, nunca metade.</p>
+    <p class="inv" id="inv"></p>
+    <p class="naipe" id="naipe"></p>
+  </div>
+</div>
+
+<p id="acervo"></p>
+<p id="selo">© 2026 Sessão dos Guardiões — baralho em elaboração • arts em <b>cartas/NNNN.jpg</b> • sem fins comerciais</p>
+
+<script src="oraculo.js"></script>
+<script src="oraculo_app.js"></script>
+</body>
+</html>

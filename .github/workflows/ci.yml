@@ -1,0 +1,28 @@
+name: Olho de Argus & Olho de Cyclops
+
+# Quests M-003 (suíte de testes a cada push) e M-041 (detector de
+# duplicatas como portão): PR que introduz duplicata fica vermelho.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testes:
+    name: 👁️ Olho de Argus — suíte de testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Suíte de integração (fixtures locais, sem rede)
+        run: bash tests/rodar_testes.sh
+
+  portao-duplicatas:
+    name: 🦾 Olho de Cyclops — portão anti-duplicata
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detector de redundância (exit 1 = duplicata exata)
+        run: bash ferramentas/detector_dupes.sh

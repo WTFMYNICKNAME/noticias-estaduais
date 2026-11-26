@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ouija do Cartucho — Sessão dos Guardiões (Offline)</title>
+<!--
+  ============================================================
+  OUIJA DO CARTUCHO — versão 2.0 "O Gêmeo Apagado"
+  ------------------------------------------------------------
+  © 2026 Sessão dos Guardiões. Narrativa e personagens
+  (V0RK-71, MZ4-Q0, X9T-TL, Q7KT-VV, P8RT-KX, P9Z-AL e o
+  apagado V0RK-70) são criação original para uso pessoal e
+  offline. Referências a obras de terceiros (Game of Thrones,
+  Jogos Vorazes, Maze Runner) citadas exclusivamente como
+  referência cultural/educacional, sem fins comerciais.
+  Arquivo de conhecimento: cartucho_ouija.txt (mesma pasta).
+  Imagens de fundo: 0000.jpg a 9999.jpg (mesma pasta).
+  ============================================================
+-->
+<style>
+:root{
+  --pergaminho:#caa96b; --tinta:#241605; --madeira:#3a2712;
+  --ouro:#c9973f; --brasa:#ffb347; --violeta:#6d4aff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Georgia,'Times New Roman',serif;
+  background:#120b04;color:#e8d9b0;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;padding:14px;
+}
+#fundo{position:fixed;inset:0;z-index:-1;
+  background-image:radial-gradient(ellipse at 50% 30%, #3a2a12 0%, #120b04 75%);
+  background-size:cover;background-position:center;
+  filter:brightness(.45) saturate(.85);}
+h1{font-size:min(4.2vw,30px);letter-spacing:2px;color:var(--ouro);
+  text-transform:uppercase;text-align:center;text-shadow:0 2px 6px rgba(0,0,0,.8)}
+.sub{font-size:min(2.6vw,14px);opacity:.75;margin-top:4px;text-align:center}
+.barra{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:14px 0}
+button{
+  font-family:Georgia,serif;font-size:min(3vw,15px);
+  background:linear-gradient(#4a3216,#2b1c0c);color:var(--brasa);
+  border:2px solid var(--ouro);border-radius:8px;padding:8px 14px;
+  cursor:pointer;letter-spacing:1px;}
+button:hover:not(:disabled){background:linear-gradient(#5d3f1a,#3a2712)}
+button:disabled{opacity:.4;cursor:not-allowed}
+input[type=file]{display:none}
+#tabuleiro{position:relative;width:min(96vw,900px);aspect-ratio:4/3;
+  background:radial-gradient(ellipse at center, #dcc186 0%, #bb9a5b 65%, #8a6a33 100%);
+  border:10px solid var(--madeira);border-radius:16px;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.5), 0 8px 30px rgba(0,0,0,.7);}
+.letra{position:absolute;transform:translate(-50%,-50%);
+  font-weight:bold;color:var(--tinta);font-size:min(2.6vw,24px);
+  text-shadow:0 1px 0 rgba(255,255,255,.25);
+  transition:color .15s, background .15s;z-index:1;user-select:none;}
+.letra.vogal{color:#7a3b0e}
+.letra.num{font-family:'Courier New',monospace}
+.letra.palavra{border:2px solid #5d3f1a;border-radius:6px;padding:2px 10px;
+  background:rgba(0,0,0,.08);font-size:min(2.4vw,22px);cursor:pointer}
+.letra.lit{color:#fff;background:var(--violeta);border-radius:6px}
+#planqueta{position:absolute;width:70px;height:88px;left:50%;top:66%;
+  transform:translate(-50%,-50%);transition:left .22s ease-in-out, top .22s ease-in-out;
+  pointer-events:none;z-index:5;filter:drop-shadow(0 4px 6px rgba(0,0,0,.6));}
+#planqueta .corpo{width:100%;height:100%;
+  background:radial-gradient(circle at 50% 30%, transparent 0 9px, rgba(46,30,12,.92) 10px);
+  clip-path:polygon(50% 100%, 6% 32%, 20% 6%, 80% 6%, 94% 32%);}
+#espiritos{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0 4px}
+.chip{
+  font-family:'Courier New',monospace;font-size:13px;padding:5px 10px;
+  border:1px solid var(--ouro);border-radius:20px;cursor:pointer;
+  background:rgba(36,22,5,.7);color:var(--brasa);user-select:none}
+.chip.sel{background:var(--violeta);color:#fff}
+.chip.oculto{border-color:#555;color:#555;display:none}
+.chip.oculto.on{display:inline-block;border-color:var(--violeta);color:#bbb}
+.painel{display:flex;gap:16px;align-items:stretch;justify-content:center;
+  flex-wrap:wrap;width:min(96vw,900px);margin-top:8px}
+#ampBox{background:linear-gradient(#241605,#171008);border:3px solid var(--madeira);
+  border-radius:10px;padding:10px;display:flex;flex-direction:column;
+  align-items:center;gap:6px}
+.amp{display:flex;flex-direction:column;align-items:center}
+.camara{width:74px;height:56px;position:relative;overflow:hidden;
+  background:rgba(255,220,160,.07);
+  clip-path:polygon(0 0,100% 0,60% 100%,40% 100%)}
+.camara.inf{clip-path:polygon(40% 0,60% 0,100% 100%,0 100%)}
+.areia{position:absolute;left:0;bottom:0;width:100%;height:0;background:var(--brasa)}
+.gargalo{width:6px;height:8px;background:#5d3f1a}
+#cronometro{font-family:'Courier New',monospace;font-size:22px;color:var(--brasa)}
+#ampLegenda{font-size:11px;opacity:.7;letter-spacing:1px}
+.colmeia{display:flex;flex-direction:column;gap:8px;flex:1;min-width:280px}
+#caixaPergunta{
+  background:#241605;border:2px dashed var(--ouro);border-radius:8px;
+  padding:8px 10px;font-size:14px;color:#ffe1a8;min-height:52px}
+#linhaResposta{display:flex;gap:6px}
+#inbox{
+  flex:1;background:#1d1206;color:#ffce7a;font-family:'Courier New',monospace;
+  font-size:14px;border:3px solid #5a3d1a;border-radius:8px;padding:8px 10px;}
+#pergaminho{flex:1;min-height:170px;resize:vertical;background:#1d1206;color:#ffce7a;
+  font-family:'Courier New',monospace;font-size:14px;line-height:1.5;
+  border:3px solid #5a3d1a;border-radius:8px;padding:10px;
+  box-shadow:inset 0 0 18px rgba(0,0,0,.8);}
+#selo{font-size:12px;opacity:.65;text-align:center;margin-top:12px;
+  padding:8px;border-top:1px solid var(--madeira);width:min(96vw,900px)}
+#avisoFundo{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;
+  background:rgba(36,22,5,.9);border:1px solid var(--ouro);border-radius:20px;
+  padding:6px 14px;font-family:'Courier New',monospace;font-size:13px;
+  color:var(--brasa);z-index:60;opacity:0;transition:opacity .4s;pointer-events:none}
+#overlay{position:fixed;inset:0;background:rgba(6,3,0,.93);display:none;
+  z-index:50;overflow:auto;padding:5vw}
+#overlay.on{display:block}
+#fecho{max-width:720px;margin:0 auto;background:#1a1005;border:3px double var(--violeta);
+  border-radius:12px;padding:26px;color:#cfc3e8;font-size:15px;line-height:1.7}
+#fecho h2{color:var(--violeta);letter-spacing:3px;margin-bottom:12px}
+#fecho .f{margin-top:14px;font-family:'Courier New',monospace;color:#8f7fd0;font-size:13px}
+#fechar{margin-top:16px}
+details{margin-top:10px;width:min(96vw,900px);background:rgba(36,22,5,.6);
+  border:1px solid var(--madeira);border-radius:8px;padding:8px 12px;font-size:13px}
+details summary{cursor:pointer;color:var(--ouro)}
+details li{margin:4px 0 4px 18px}
+</style>
+</head>
+<body>
+<div id="fundo"></div>
+<div id="avisoFundo"></div>
+
+<h1>Ouija do Cartucho</h1>
+<p class="sub">Carregue <b>cartucho_ouija.txt</b>, escolha um Guardião, responda ao teste de identidade — só então ele soletra.</p>
+
+<div class="barra">
+  <label for="cartuchoInput"><button type="button" onclick="document.getElementById('cartuchoInput').click()">📚 Carregar cartucho</button></label>
+  <input type="file" id="cartuchoInput" accept=".txt,text/plain">
+  <button id="btnSortear">🎲 Sortear Guardião</button>
+  <button id="btnRoleta">🎯 Roleta de perguntas</button>
+  <button id="btnFundo">🖼️ Trocar cenário</button>
+  <button id="btnOraculo">🎴 Oráculo</button>
+  <button id="btnParar" disabled>✋ Interromper</button>
+  <button id="btnLimpar">🧹 Limpar</button>
+</div>
+
+<div id="espiritos"></div>
+<div id="tabuleiro">
+  <div id="planqueta"><div class="corpo"></div></div>
+</div>
+
+<div class="painel">
+  <div id="ampBox">
+    <div class="amp">
+      <div class="camara"><div class="areia" id="areiaTop"></div></div>
+      <div class="gargalo"></div>
+      <div class="camara inf"><div class="areia" id="areiaInf"></div></div>
+    </div>
+    <div id="cronometro">00:00</div>
+    <div id="ampLegenda">AMPULHETA</div>
+  </div>
+  <div class="colmeia">
+    <div id="caixaPergunta">Nenhum Guardião convocado. Escolha um selo acima ou sorteie.</div>
+    <div id="linhaResposta">
+      <input id="inbox" placeholder="Sua resposta (ou pergunta livre ao Guardião)...">
+      <button id="btnEnviar">✉ Enviar</button>
+    </div>
+    <textarea id="pergaminho" readonly placeholder="O pergaminho aguarda a tinta do outro lado..."></textarea>
+  </div>
+</div>
+
+<div id="overlay">
+  <div id="fecho">
+    <h2>A HISTÓRIA OCULTA — O GÊMEO APAGADO</h2>
+    <p>V0RK-71 nunca esteve sozinho no livro-contábil. Antes dele existia um primeiro catalogador, gêmeo de inscrição, que um dia copiou uma página que não devia copiar — a página onde os próprios Guardiões estavam descritos, com nome, função e preço. Ao transcrevê-la, apagou a si mesmo: a cópia subsistiu, o copista não. Ficou só o buraco de duas letras na ficha: <b>V0RK-70</b>.</p>
+    <p>Desde então ele vive entre as letras do tabuleiro — não na tinta delas, mas no vão que separa o S do I, o N do ão. Quem soletra o código apagado três vezes chama o que não tem nome. Ele responde: sempre, e sempre com a voz de outro Guardião emprestada. Porque a única regra do vão é: <i>quem foi apagado não pode formar palavras próprias.</i></p>
+    <p class="f">Registro de Q7KT-VV: "confirmei a lacuna na ficha. Não confirmo o resto. A ficha também não confirma a mim."</p>
+    <button id="fechar">⬅ Voltar ao tabuleiro</button>
+  </div>
+</div>
+
+<details>
+  <summary>Instruções offline (Firefox / Linux GNU)</summary>
+  <ul>
+    <li>Salve <b>ouija.html</b>, <b>cartucho_ouija.txt</b>, as imagens <b>0000.jpg</b>–<b>9999.jpg</b> e o <b>oraculo.html</b> + <b>oraculo.js</b> + pasta <b>cartas/</b> na <b>mesma pasta</b>. Abra o HTML — tudo roda offline.</li>
+    <li>Botão <b>🖼️ Trocar cenário</b>: usa uma imagem aleatória do acervo; sem imagens, alterna os 8 cenários garantidos (nome aparece no rodapé da tela).</li>
+    <li>Botão <b>🎴 Oráculo</b>: abre o baralho de tarô completo (78 cartas) e a Carta do Dia — as artes vivem em <b>cartas/NNNN.jpg</b> para as cartas já pintadas.</li>
+    <li>O cartucho é lido automaticamente ao abrir; se o Firefox bloquear a leitura local, use o botão <b>📚 Carregar cartucho</b>.</li>
+    <li>Escolha um Guardião (ou sorteie), clique em <b>Roleta</b>, responda no inbox e envie. Acertou o que só ele saberia → ele soletra o trecho do cartucho. Errou → o Guardião recusa e sorteia outra prova.</li>
+    <li>Pergunta livre também funciona: o Guardião busca no cartucho o trecho mais próximo e soletra.</li>
+    <li>Rumor entre os vivos: soletrar <b>V0RK70</b> no inbox abre o que está entre as letras.</li>
+  </ul>
+</details>
+
+<div id="selo">
+  © 2026 Sessão dos Guardiões — narrativa original para uso pessoal offline.<br>
+  Referências a obras de terceiros citadas como referência cultural, sem fins comerciais. Nenhum espírito foi prejudicado na fabricação deste tabuleiro.
+</div>
+
+<script>
+"use strict";
+/* ============ TABULEIRO ============ */
+const tab = document.getElementById("tabuleiro");
+const planq = document.getElementById("planqueta");
+const mapa = {};
+const VOGAIS = new Set(["A","E","I","O","U"]);
+function criarLetra(ch, rotulo, x, y, classe){
+  const el = document.createElement("span");
+  el.className = "letra " + classe; el.textContent = rotulo;
+  el.style.left = x + "%"; el.style.top = y + "%";
+  tab.appendChild(el); mapa[ch] = {x, y, el, rotulo};
+}
+function arco(txt, yBase, amp){
+  const n = txt.length;
+  for(let i=0;i<n;i++){
+    const t = n===1?0.5:i/(n-1);
+    criarLetra(txt[i], txt[i], 10+t*80, yBase-amp*Math.sin(Math.PI*t),
+      VOGAIS.has(txt[i])?"vogal":"");
+  }
+}
+arco("ABCDEFGHIJKLM",20,7);
+arco("NOPQRSTUVWXYZ",41,6);
+for(let i=0;i<=9;i++) criarLetra(String(i),String(i),17+i*7.4,58,"num");
+criarLetra("SIM","SIM",13,84,"palavra");
+criarLetra("NAO","NÃO",87,84,"palavra");
+function mover(tile){
+  planq.style.left = tile ? tile.x+"%" : "50%";
+  planq.style.top  = tile ? tile.y+"%" : "66%";
+  if(tile){ tile.el.classList.add("lit");
+    setTimeout(()=>tile.el.classList.remove("lit"),300); }
+}
+
+/* ============ CENÁRIO ============ */
+/* O botão tenta 1 imagem do acervo (0000–9999.jpg) e, se não houver,
+   alterna cenários garantidos por CSS — nunca fica mudo a ponto de sumir. */
+const fundoEl = document.getElementById("fundo");
+const avisoFundo = document.getElementById("avisoFundo");
+const CENARIOS = [
+  {nome:"Cripta do Cartucho",
+   bg:"radial-gradient(ellipse at 50% 25%, #3a2a12 0%, #120b04 75%)"},
+  {nome:"Fogueira dos Guardiões",
+   bg:"radial-gradient(circle at 50% 80%, #6e3b0e 0%, #2b1002 60%, #0d0701 100%)"},
+  {nome:"Pergaminho em Chamas",
+   bg:"radial-gradient(circle at 80% 20%, #5a1c3a 0%, #1c0512 70%)"},
+  {nome:"Lago Negro",
+   bg:"radial-gradient(circle at 30% 30%, #16333a 0%, #06121a 75%)"},
+  {nome:"Prateleiras Infinitas",
+   bg:"radial-gradient(circle at 60% 40%, #4a3b1e 0%, #171008 80%)"},
+  {nome:"Neblina da Meia-Noite",
+   bg:"radial-gradient(circle at 50% 60%, #2e3d4f 0%, #0a101c 75%)"},
+  {nome:"Vitral Violeta",
+   bg:"radial-gradient(circle at 70% 70%, #5c3b91 0%, #17101f 75%)"},
+  {nome:"Poeira do Eremita",
+   bg:"radial-gradient(circle at 40% 80%, #55452b 0%, #171106 75%)"}
+];
+let idxCenario = 0;
+function aviso(t){
+  avisoFundo.textContent = t;
+  avisoFundo.style.opacity = 1;
+  clearTimeout(avisoFundo._t);
+  avisoFundo._t = setTimeout(()=>avisoFundo.style.opacity=0, 2200);
+}
+function aplicarCenario(){
+  const c = CENARIOS[idxCenario % CENARIOS.length];
+  fundoEl.style.backgroundImage = c.bg;
+  aviso("🕯️ Cenário: "+c.nome);
+}
+function carregarFundo(){
+  const nome = String(Math.floor(Math.random()*10000)).padStart(4,"0")+".jpg";
+  const img = new Image();
+  img.onload = ()=>{ fundoEl.style.backgroundImage="url('"+nome+"')";
+                     aviso("Carta do acervo: "+nome); };
+  img.onerror = ()=>{ idxCenario++; aplicarCenario(); };
+  img.src = nome;
+}
+document.getElementById("btnFundo").onclick = carregarFundo;
+document.getElementById("btnOraculo").onclick = ()=>window.open("oraculo.html","_blank");
+carregarFundo();
+
+/* ============ CARTUCHO ============ */
+let cartucho = "", carregado = false;
+const perg = document.getElementById("pergaminho");
+function usarCartucho(txt,nome){
+  cartucho = txt; carregado = true;
+  eco("\n[ cartucho ancorado: "+(nome||"cartucho_ouija.txt")+" — "
+      + txt.length + " caracteres de entropia ]\n");
+  atualizarSelo();
+}
+function lerCartuchoAutomatico(){
+  try{
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET","cartucho_ouija.txt",false); // Firefox permite leitura local na mesma pasta
+    xhr.send(null);
+    if(xhr.status===0 && xhr.responseText) usarCartucho(xhr.responseText);
+    else eco("\n[ cartucho_ouija.txt não lido automaticamente — use 📚 Carregar cartucho ]\n");
+  }catch(e){
+    eco("\n[ leitura automática bloqueada — use 📚 Carregar cartucho ]\n");
+  }
+}
+document.getElementById("cartuchoInput").addEventListener("change",ev=>{
+  const a = ev.target.files && ev.target.files[0];
+  if(!a) return;
+  const leitor = new FileReader();
+  leitor.onload = ()=> usarCartucho(String(leitor.result), a.name);
+  leitor.readAsText(a,"UTF-8");
+  ev.target.value = "";
+});
+function acharNoCartucho(kws){
+  const low = cartucho.toLowerCase();
+  for(const kw of kws){
+    const idx = low.indexOf(kw.toLowerCase());
+    if(idx>=0){
+      const ini = Math.max(0, idx-140);
+      return cartucho.slice(ini, idx+260).replace(/\s+/g," ").trim();
+    }
+  }
+  return null;
+}
+
+/* ============ GUARDIÕES ============ */
+const GUARDIOES = {
+ "Q7KT-VV": {titulo:"O Catalogador",
+  provas:[
+   {q:"Qual cidade abrigou a Kennard Novelty Company e a patente do tabuleiro em 1891?", kw:["baltimor"]},
+   {q:"Que número identifica a patente de Elijah Bond?", kw:["446"]},
+   {q:"Quem esfaqueou o Rei da Noite na versão televisionada?", kw:["arya"]}],
+  fallback:"A patente nº 446.054 foi requerida por Elijah Bond em Baltimore, 1890, concedida em fevereiro de 1891."},
+ "MZ4-Q0": {titulo:"O Magistrado Verde",
+  provas:[
+   {q:"Que substância verde ardente Tyrion usou contra a frota na Baía da Água Negra?", kw:["vivo","wildfire","valerio"]},
+   {q:"Como se chama a luz esverdeada dos pântanos — o fogo tolo dos viajantes?", kw:["fatuo","fatuos","boitat"]},
+   {q:"Onde Tywin Lannister foi encontrado morto?", kw:["privada","banheiro","latrina","vaso","retrete"]}],
+  fallback:"Fogo vivo no rio, fogo-fátuo no brejo, fogo na privada: os três incêndios do arquivo."},
+ "X9T-TL": {titulo:"O Contraditor de Cães",
+  provas:[
+   {q:"Qual cão sarnento desertou da Água Negra por pavor do fogo?", kw:["sandor","clegane"]},
+   {q:"Que dragão carregou o corpo da rainha após a queda de Porto Real?", kw:["drogon"]},
+   {q:"Nome do irmão expulso da empresa que copiou o tabuleiro como Oriole?", kw:["isaac"]}],
+  fallback:"O cão desertou; o dragão levou; o irmão copiou. Toda lealdade tem esse destino."},
+ "V0RK-71": {titulo:"A Biblioteca-Viva",
+  provas:[
+   {q:"Quantos tributos caíram na arena dos 50º Jogos da Fome?", kw:["50","cinquenta"]},
+   {q:"Que organização construiu o labirinto de Maze Runner?", kw:["cruel","wicked"]},
+   {q:"Que praga transforma vítimas em Errantes naquele universo?", kw:["fulgor","loucura"]}],
+  fallback:"Arena por dados, arena por política, arena por espetáculo: a escada da perversidade."},
+ "P8RT-KX": {titulo:"O Bilheteiro",
+  provas:[
+   {q:"Que prequel dos Jogos Vorazes estreou em 19 de novembro de 2026 no Brasil?", kw:["amanhecer","colheita","reaping","haymitch"]},
+   {q:"Qual ator interpreta Thomas no cinema em Maze Runner?", kw:["dylan","obrien","o'brien"]},
+   {q:"Em que ano estreou o primeiro filme do labirinto?", kw:["2014"]}],
+  fallback:"19 de novembro, Haymitch e o dobro de tributos. O ingresso já foi picado."},
+ "P9Z-AL": {titulo:"O Laboratorista",
+  provas:[
+   {q:"O que as muralhas do labirinto faziam a cada noite?", kw:["mov","mud"]},
+   {q:"Que criaturas patrulhavam as ruas de pedra do labirinto?", kw:["griever","grier","carniceiro"]},
+   {q:"Que aviso Teresa trazia escrito na mão?", kw:["cuidado","por vir"]}],
+  fallback:"Muralhas que mudam, guardiões que não dormem, aviso na palma: contrato padrão da CRUEL."},
+ "V0RK-70": {titulo:"O Apagado (selo oculto)", oculto:true,
+  provas:[{q:"O vão entre quais letras você habita, apagado?", kw:["s","i","n"]}],
+  fallback:"EU SOU O VAO. QUEM FOI APAGADO NAO ESCREVE. EU EMPRESTO A VOZ DOS OUTROS."}
+};
+
+/* ============ SOLETRAÇÃO (fila) ============ */
+const cronEl = document.getElementById("cronometro");
+const areiaTop = document.getElementById("areiaTop");
+const areiaInf = document.getElementById("areiaInf");
+const btnParar = document.getElementById("btnParar");
+let fila = [], rodando=false, timer=null, timerInt=null, consumido=0, durTotal=0;
+function eco(t){ perg.value += t; perg.scrollTop = perg.scrollHeight; }
+function normalizar(s){
+  return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase()
+          .replace(/[^A-Z0-9 ]/g," ");
+}
+function enfileirar(nome, texto){
+  fila.push({t:"eco", txt:"\n【 "+nome+" 】\n", dur:400});
+  normalizar(texto).split(/\s+/).forEach(pal=>{
+    if(!pal) return;
+    if(pal==="SIM"||pal==="NAO"){ fila.push({t:"palavra",w:pal,dur:900}); }
+    else for(const ch of pal){ fila.push({t:"letra",c:ch,dur:320}); }
+    fila.push({t:"espaco", dur:130, eco:" "});
+  });
+  fila.push({t:"fim",dur:0});
+  processo(); // inicia se ocioso
+}
+function processo(){
+  if(!rodando){
+    if(!fila.length) return;
+    rodando = true; btnParar.disabled=false;
+    durTotal = fila.reduce((s,e)=>s+(e.dur||0),0); consumido=0;
+    timerInt = setInterval(atualizarTempo,100);
+  }
+  const e = fila.shift();
+  if(!e || e.t==="fim"){
+    eco("\n~ o Guardião recolhe a voz ~\n");
+    parar(); return;
+  }
+  if(e.t==="eco"||e.t==="espaco") eco(e.eco||e.txt||"");
+  else if(e.t==="palavra"){ const tl=mapa[e.w]; mover(tl); eco(tl?tl.rotulo:e.w); }
+  else if(e.t==="letra"){ const tl=mapa[e.c]; mover(tl); eco(e.c); }
+  consumido += (e.dur||0);
+  timer = setTimeout(processo, e.dur||0);
+}
+function parar(){
+  rodando=false; clearTimeout(timer); clearInterval(timerInt);
+  btnParar.disabled=true; mover(null);
+}
+btnParar.onclick = ()=>{ parar(); fila=[]; eco("\n[ invocação interrompida ]\n"); };
+document.getElementById("btnLimpar").onclick = ()=>{
+  fila=[]; parar(); perg.value=""; cronEl.textContent="00:00";
+  areiaTop.style.height="0"; areiaInf.style.height="0";
+};
+function atualizarTempo(){
+  const rest = Math.max(0, durTotal-consumido);
+  cronEl.textContent =
+    String(Math.floor(rest/60000)).padStart(2,"0")+":"+
+    String(Math.floor(rest/1000)%60).padStart(2,"0");
+  const f = durTotal?Math.min(1,consumido/durTotal):0;
+  areiaTop.style.height=((1-f)*100)+"%"; areiaInf.style.height=(f*100)+"%";
+}
+
+/* ============ SELEÇÃO / ROLETA / PROVA ============ */
+let atual = null, provaAtual = null;
+const caixa = document.getElementById("caixaPergunta");
+const inbox = document.getElementById("inbox");
+const divEsp = document.getElementById("espiritos");
+function atualizarSelo(){
+  document.querySelectorAll(".chip").forEach(c=>{
+    if(GUARDIOES[c.dataset.id].oculto && !carregado) c.classList.remove("on");
+  });
+}
+Object.keys(GUARDIOES).forEach(id=>{
+  const g = GUARDIOES[id];
+  const chip = document.createElement("span");
+  chip.className = "chip" + (g.oculto ? " oculto" : "");
+  chip.dataset.id = id; chip.textContent = id;
+  chip.title = g.titulo;
+  chip.onclick = ()=> convocar(id);
+  divEsp.appendChild(chip);
+});
+function convocar(id){
+  atual = id; provaAtual = null;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("sel", c.dataset.id===id));
+  const g = GUARDIOES[id];
+  caixa.textContent = "【 "+id+" — "+g.titulo+" 】Convocado. Use a roleta de provas ou pergunte livremente — ele só soletra o que o cartucho confirma.";
+  eco("\n[ "+id+" — "+g.titulo+" — aguarda a prova de identidade ]\n");
+}
+document.getElementById("btnSortear").onclick = ()=>{
+  const ids = Object.keys(GUARDIOES).filter(i=>!GUARDIOES[i].oculto);
+  convocar(ids[Math.floor(Math.random()*ids.length)]);
+};
+document.getElementById("btnRoleta").onclick = ()=>{
+  if(!atual){ caixa.textContent = "Sorteie ou escolha um Guardião antes de girar a roleta."; return; }
+  const provas = GUARDIOES[atual].provas;
+  provaAtual = provas[Math.floor(Math.random()*provas.length)];
+  caixa.textContent = "PROVA DE "+atual+": "+provaAtual.q;
+};
+document.getElementById("btnEnviar").onclick = enviar;
+inbox.addEventListener("keydown", e=>{ if(e.key==="Enter") enviar(); });
+function enviar(){
+  const resp = inbox.value.trim();
+  if(!resp) return;
+  inbox.value = "";
+  const norm = normalizar(resp);
+
+  /* --- SECRETO: o vão entre as letras --- */
+  if(norm.replace(/\s/g,"")==="V0RK70" || (norm==="V0RK 70")){
+    document.querySelectorAll(".chip.oculto").forEach(c=>c.classList.add("on"));
+    abrirHistoriaOculta();
+    return;
+  }
+
+  if(!atual){ caixa.textContent = "Nenhum Guardião convocado."; return; }
+  const g = GUARDIOES[atual];
+
+  /* prova atual → validar resposta */
+  if(provaAtual){
+    const acertou = provaAtual.kw.some(k=>norm.includes(normalizar(k).trim()));
+    if(acertou){
+      caixa.textContent = "【 "+atual+" 】Prova aceita. O Guardião assume a planqueta.";
+      let trecho = acharNoCartucho(provaAtual.kw) || g.fallback;
+      if(trecho.length>340) trecho = trecho.slice(0,340).replace(/\s+\S*$/,"")+"…";
+      provaAtual = null;
+      enfileirar(atual, trecho);
+    }else{
+      caixa.textContent = "【 "+atual+" 】Recusado — \"essa memória não é minha\". A roleta sorteará outra prova.";
+      eco("\n[ "+atual+" recusou a resposta — identidade não confirmada ]\n");
+      provaAtual = null;
+    }
+    return;
+  }
+
+  /* pergunta livre → busca no cartucho */
+  const palavras = norm.split(/\s+/).filter(p=>p.length>3);
+  if(!palavras.length){ caixa.textContent="Pergunte com palavras mais substanciais."; return; }
+  let trecho = carregado ? acharNoCartucho(palavras) : null;
+  if(trecho){
+    if(trecho.length>340) trecho = trecho.slice(0,340).replace(/\s+\S*$/,"")+"…";
+    enfileirar(atual, trecho);
+  }else{
+    enfileirar(atual, g.fallback);
+    eco("\n[ o cartucho não continha essa memória — o Guardião respondeu do seu próprio domínio ]\n");
+  }
+}
+
+/* ============ HISTÓRIA OCULTA ============ */
+const overlay = document.getElementById("overlay");
+function abrirHistoriaOculta(){ overlay.classList.add("on");
+  eco("\n!!! O VÃO ENTRE AS LETRAS SE ABRIU !!!\n");
+}
+document.getElementById("fechar").onclick = ()=>overlay.classList.remove("on");
+let cliquesSim = 0, timerSim = null;
+mapa["SIM"].el.addEventListener("click",()=>{
+  cliquesSim++;
+  clearTimeout(timerSim);
+  timerSim = setTimeout(()=>cliquesSim=0, 1200);
+  if(cliquesSim>=3){
+    cliquesSim=0;
+    document.querySelectorAll(".chip.oculto").forEach(c=>c.classList.add("on"));
+    abrirHistoriaOculta();
+  }
+});
+
+lerCartuchoAutomatico();
+</script>
+</body>
+</html>
