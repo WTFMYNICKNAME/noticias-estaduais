@@ -219,6 +219,20 @@ Foi ele que consolidou o codificador de URL duplicado em `lib/url.sh`.
       "https://g1.globo.com/rss/g1/sp/"
   ```
 
+## 👐🚫 Política "Feito à Mão" — sem conteúdo gerado por I.A.
+
+Por decisão do mantenedor, **contribuições novas não podem conter nada gerado
+por I.A.** (código, texto, arte, tradução ou ilustração por modelo generativo).
+As 8 regras, a **Declaração Feito à Mão** e o ocorrido fundador estão em
+[docs/POLITICA_SEM_IA.md](docs/POLITICA_SEM_IA.md); o passo a passo genérico
+para **qualquer usuário da Mistral** transformar o próprio assistente em
+**auditor** da política (Le Chat, Studio/agentes e sessões de código) está em
+[docs/GUIA_CONFIG_MISTRAL.md](docs/GUIA_CONFIG_MISTRAL.md).
+
+```bash
+./wikipedia/missao_sem_fontes.sh --navegar   # contribuição humana começa assim: escolha, leia, escreva à mão
+```
+
 ## 🎲 Contribuir: Quadro de Missões
 
 Quer contribuir (ou usar) o projeto de dia ou de madrugada? Veja o
@@ -242,6 +256,7 @@ Registro das adaptações e correções aplicadas em relação ao documento de r
 - **Codificador de URL único (`lib/url.sh`)** — consolidado pelo próprio detector de duplicatas; usado pelo motor de notícias e pelo módulo da Wikipédia.
 - **Ferramentas anti-redundância** — `ferramentas/detector_dupes.sh` (plágio interno) e `ferramentas/ideias.sh` (ID de ideias + prior art no GitHub; registro em `docs/REGISTRO_IDEIAS.md`).
 - **CI de dois portões (`.github/workflows/ci.yml`)** — a cada push/PR rodam a suíte de integração (quest M-003 "Olho de Argus") e o detector de redundância como portão (quest M-041 "Olho de Cyclops"): duplicata exata no repositório = PR vermelho.
+- **Política "Feito à Mão" (`docs/POLITICA_SEM_IA.md` + `docs/GUIA_CONFIG_MISTRAL.md`)** — contribuições novas sem conteúdo gerado por I.A.; bloco de regras colável e guia genérico para qualquer usuário Mistral (Le Chat/Studio/Vibe) configurar o assistente como auditor da política.
 - **Registro de Sessões (`docs/REGISTRO_SESSOES.md`)** — arquivo de continuidade: cada aba/sessão registra o que fez, onde parou e a próxima quest (ritual de retomada incluído).
 - **Portão pré-voo (`ferramentas/portao_pre_voo.sh`)** — hash de agenda nos headers de teste em rajada + gate local que aborta fora da janela autorizada (concepção: segunda opinião Lumo; crédito no registro de ideias).
 - **Módulo Wikipédia (`wikipedia/missao_sem_fontes.sh`)** — sorteia verbetes sem fontes da Esplanada com âncora anti-repetição.

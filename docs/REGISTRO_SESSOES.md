@@ -52,3 +52,17 @@ trabalho exatamente do ponto em que parou, sem retrabalho nem duplicata de ideia
 - **Próximo passo:** sugestões fáceis — **M-042** (Espelho de Similaridade:
   shingles/Levenshtein no detector) ou **M-004** (`modulo_feed.sh`, RSS de
   saída). Grandes quests (M-023, M-035) pedem decisão de escopo do dono.
+
+## S-003 — 26/11 — Aba de continuação (Vibe Code)
+
+- **Feito:** política **"Feito à Mão"** (pedido do dono: não aceitar nenhum
+  conteúdo gerado por I.A.) — `docs/POLITICA_SEM_IA.md` com 8 regras,
+  Declaração Feito à Mão, bloco colável de instruções e nota de transparência
+  fundadora; `docs/GUIA_CONFIG_MISTRAL.md` com passo a passo genérico (Le Chat,
+  Studio/agentes, Vibe Code e lado GitHub, com testes de conformidade);
+  quest **M-044** aberta no Arco V (só pode ser feita à mão); ideia registrada
+  (IDEIA-1ecfb9bb) e prior art checado.
+- **Verificação:** suíte 32/32 PASS; detector limpo; busca de prior art
+  "reject AI generated contributions policy" sem resultados.
+- **Próximo passo:** **M-044** é para o dono/contribuidor humano (a própria
+  política exige); quests técnicas M-042/M-004 continuam abertas.

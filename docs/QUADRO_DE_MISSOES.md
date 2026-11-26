@@ -174,6 +174,12 @@ Você pode acumular classes — o engine não se importa. 😄
 - [ ] **M-042 · 🟡 · 50 XP** — "Espelho de Similaridade": aprimorar o detector
   com similaridade de sequência (shingles grandes/Levenshtein) para pegar
   cópias reformuladas além do corte de 75% por tokens.
+- [ ] **M-044 · 🟡 · 40 XP** — "Juramento Feito à Mão": adotar a política de
+  recusa de conteúdo gerado por I.A. (`docs/POLITICA_SEM_IA.md`) no lado
+  GitHub — criar `.github/PULL_REQUEST_TEMPLATE.md` com o checkbox da
+  Declaração Feito à Mão e o template de issue (passo 5 do guia
+  `docs/GUIA_CONFIG_MISTRAL.md`). **Só vale se feita à mão**, pelo dono ou
+  por contribuidor(a) que assinar a declaração.
 - [x] **M-043 · 🟢 · 30 XP** — ✅ *Concluída* (concepção: segunda opinião da
   sessão Lumo, NPCs Z4P9T2/D8K5X3): `ferramentas/portao_pre_voo.sh` —
   pré-voo de testes com hash de agenda (`carimbo` determinístico de

@@ -18,3 +18,5 @@
 - 2026-11-21 — buscar "ouija board html game" → nenhum resultado no GitHub
 - 2026-11-21 — buscar "wikipedia articles without references tool" → nenhum resultado no GitHub
 - **IDEIA-3bf6ba12** (2026-11-22) — **Portão pré-voo com hash de agenda** — Headers X-Test-Run/X-Test-Window (hash da janela|scripts) em requests de teste em rajada + gate local que recusa disparar fora da janela assinada — cortesia com o servidor alvo, obviamente não segurança (HMAC ficaria para M-042+). Crédito: segunda opinião da sessão Lumo, NPCs Z4P9T2 e D8K5X3
+- **IDEIA-1ecfb9bb** (2026-11-26) — **Política Feito à Mão (recusa de conteúdo de I.A.)** — Regras de contribuição 100% humana + bloco de instruções colável que transforma assistentes Mistral (Le Chat/Studio/Vibe) em auditores da política, com Declaração Feito à Mão e testes de conformidade (POLITICA_SEM_IA.md + GUIA_CONFIG_MISTRAL.md)
+- 2026-11-26 — buscar "reject AI generated contributions policy" → nenhum resultado no GitHub
