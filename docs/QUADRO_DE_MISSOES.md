@@ -83,8 +83,9 @@ Você pode acumular classes — o engine não se importa. 😄
   retornam poucos itens.
 - [ ] **M-002 · 🟡 · 40 XP** — "Fontes das Capitais": para cada UF, cadastrar
   1 veículo de imprensa estadual em `NEWS_EXTRA_FONTES` (`config/estados.sh`).
-- [ ] **M-003 · 🟡 · 40 XP** — "Olho de Argus": criar CI (GitHub Actions) que
-  roda `bash tests/rodar_testes.sh` a cada push.
+- [x] **M-003 · 🟡 · 40 XP** — ✅ *Concluída*: `.github/workflows/ci.yml` "Olho de
+  Argus & Olho de Cyclops" — roda `bash tests/rodar_testes.sh` a cada
+  push/PR (fixtures locais, sem rede na suíte).
 - [ ] **M-004 · 🔴 · 80 XP** — "Feed do Feed": novo módulo `modulo_feed.sh`
   gerando RSS de saída (`noticias/<UF>/rss.xml`) para publicar em websites.
 - [ ] **M-005 · 🔴 · 80 XP** — "Vale dos Duplicatas": dedupe entre estados
@@ -167,9 +168,9 @@ Você pode acumular classes — o engine não se importa. 😄
   repetidos) e `ferramentas/ideias.sh` (ID-assinatura + prior art no GitHub);
   codificador de URL consolidado em `lib/url.sh` pelo próprio detector;
   suíte em 26 verificações.
-- [ ] **M-041 · 🔴 · 80 XP** — "Olho de Cyclops": plugar
-  `ferramentas/detector_dupes.sh` no CI (GitHub Actions) junto com os tests
-  (M-003) — PR que introduz duplicata fica com o portão vermelho.
+- [x] **M-041 · 🔴 · 80 XP** — ✅ *Concluída*: o mesmo workflow roda
+  `ferramentas/detector_dupes.sh` como job separado ("Olho de Cyclops") —
+  PR que introduz duplicata fica com o portão vermelho (exit 1).
 - [ ] **M-042 · 🟡 · 50 XP** — "Espelho de Similaridade": aprimorar o detector
   com similaridade de sequência (shingles grandes/Levenshtein) para pegar
   cópias reformuladas além do corte de 75% por tokens.

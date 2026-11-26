@@ -1,5 +1,7 @@
 # 🌐 Projeto News Engine & Sistema de NPCs
 
+[![Olho de Argus & Olho de Cyclops](https://github.com/WTFMYNICKNAME/noticias-estaduais/actions/workflows/ci.yml/badge.svg)](https://github.com/WTFMYNICKNAME/noticias-estaduais/actions/workflows/ci.yml)
+
 Bem-vindo(a) ao repositório oficial do projeto **News NPC Engine** (*News Engine & Sistema de NPCs*). Este software unificado combina automação em scripts Bash GNU/Linux, gerenciamento de dados regionais por estados brasileiros, coleta de fontes dinâmicas da Web e a geração de roteiros de notícias no estilo *"Conte as últimas novidades"* (antigo Google Assistente) — prontos para podcasts, leitura acessível e feeds de notícias de websites.
 
 Baseado no documento **FAQ — Arquitetura Modular de Notícias Bash**, seguindo as regras de tempo de vida de software: modularidade (SRP), carregamento *on-demand*, *graceful shutdown* com trap/PID e resiliência a falhas.
@@ -119,8 +121,13 @@ Variáveis de ambiente: `NEWS_BASE_DIR` (dados), `NEWS_LIMIT` (novidades por UF 
 ## 🧪 Testes
 
 ```bash
-bash tests/rodar_testes.sh    # usa fixtures locais via file://, sem rede — 14/14 PASS
+bash tests/rodar_testes.sh    # usa fixtures locais via file://, sem rede — 32/32 PASS
 ```
+
+O **CI** (`.github/workflows/ci.yml`) roda a suíte a cada push/PR (quest
+M-003 "Olho de Argus") e também `ferramentas/detector_dupes.sh` como portão
+anti-duplicata (quest M-041 "Olho de Cyclops"): PR que introduz função
+duplicada fica vermelho.
 
 ## 🕯️ Tabuleiro Ouija do Cartucho + 🎴 Oráculo de Tarô
 
@@ -234,6 +241,8 @@ Registro das adaptações e correções aplicadas em relação ao documento de r
 - **Testes de integração** — suíte local com fixtures RSS reais do g1 (sem rede): 32 verificações (arquivo do dia, dedupe, âncora, janela, retenção, podcast, status, `ler`, sorteio Wikipédia, detector de duplicatas, registro de ideias, portão pré-voo).
 - **Codificador de URL único (`lib/url.sh`)** — consolidado pelo próprio detector de duplicatas; usado pelo motor de notícias e pelo módulo da Wikipédia.
 - **Ferramentas anti-redundância** — `ferramentas/detector_dupes.sh` (plágio interno) e `ferramentas/ideias.sh` (ID de ideias + prior art no GitHub; registro em `docs/REGISTRO_IDEIAS.md`).
+- **CI de dois portões (`.github/workflows/ci.yml`)** — a cada push/PR rodam a suíte de integração (quest M-003 "Olho de Argus") e o detector de redundância como portão (quest M-041 "Olho de Cyclops"): duplicata exata no repositório = PR vermelho.
+- **Registro de Sessões (`docs/REGISTRO_SESSOES.md`)** — arquivo de continuidade: cada aba/sessão registra o que fez, onde parou e a próxima quest (ritual de retomada incluído).
 - **Portão pré-voo (`ferramentas/portao_pre_voo.sh`)** — hash de agenda nos headers de teste em rajada + gate local que aborta fora da janela autorizada (concepção: segunda opinião Lumo; crédito no registro de ideias).
 - **Módulo Wikipédia (`wikipedia/missao_sem_fontes.sh`)** — sorteia verbetes sem fontes da Esplanada com âncora anti-repetição.
 - **Correções de engenharia Bash** — `declare -gA` para tabelas globais (variáveis deixavam de existir fora da função de carga), `IFS` restaurado após loops de fontes, leitura com `IFS='\t'` (títulos com espaços) e guardas para UFs inéditas.
